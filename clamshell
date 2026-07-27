@@ -204,6 +204,9 @@ trap cleanup EXIT
 trap 'exit 130' INT
 trap 'exit 143' TERM
 trap 'exit 129' HUP
+# `clamshell --status | head` closes the pipe mid-write; without this, bash
+# reports "printf: write error: Broken pipe" instead of just stopping.
+trap 'exit 141' PIPE
 
 # ------------------------------------------------------------ subcommands ---
 
