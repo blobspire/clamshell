@@ -133,19 +133,6 @@ $ visudo -c -f /tmp/cs && sudo install -m 0440 -o root -g wheel /tmp/cs /etc/sud
 Worst case if this rule is abused: your laptop declines to sleep. The argument
 vector is fixed, so there's no privilege escalation path.
 
-## What actually happens in your bag
-
-Honest expectations, because the lid is the least of your problems:
-
-- **Wi-Fi is what kills agents, not sleep.** Walk out of range and in-flight
-  network requests fail. Tether to a phone hotspot if the work needs the
-  network.
-- **It runs at full power, not idle.** A sealed bag with no airflow means
-  heat-soak and throttling. Expect a few hours of battery, not ten.
-- **The display is not held on.** `clamshell` deliberately omits `caffeinate -d`,
-  so the screen sleeps normally when the lid is open and the panel is off at the
-  hardware level when it's shut.
-
 ## Development
 
 ```console
