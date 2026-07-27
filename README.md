@@ -39,6 +39,12 @@ lifts the restriction is `pmset disablesleep`, which requires root.
 
 `clamshell` sets it, holds it while you watch, and clears it on exit.
 
+It does still run `caffeinate` as a second layer, but with `-ims` and
+deliberately **not** `-d`. That blocks idle, system, and disk sleep without
+pinning the display on: with the lid open the screen sleeps on its normal
+timer, and with the lid shut the panel is off at the hardware level anyway.
+Holding it awake would just burn battery for a screen nobody is looking at.
+
 ## The safety problem this is built around
 
 `pmset disablesleep 1` is **written to disk and survives reboots.** Set it and
