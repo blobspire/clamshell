@@ -1,0 +1,39 @@
+name: shellcheck
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    # macOS runner so `bash --version` matches what users actually have,
+    # and so the bash 3.2 constraint is visible if anyone breaks it.
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install shellcheck
+        run: brew install shellcheck
+
+      - name: Lint
+        run: shellcheck clamshell
+
+      - name: Parse under system bash 3.2
+        run: |
+          /bin/bash --version | head -1
+          /bin/bash -n clamshell
+
+      - name: Smoke test the read-only subcommands
+        run: |
+          ./clamshell --version
+          ./clamshell --help > /dev/null
+          ./clamshell --status
+
+      - name: Argument validation must fail fast, never prompt
+        run: |
+          set +e
+          ./clamshell --nope         ; [ $? -eq 1 ] || exit 1
+          ./clamshell --min-battery x; [ $? -eq 1 ] || exit 1
+          ./clamshell --interval 0   ; [ $? -eq 1 ] || exit 1
+          echo "ok"

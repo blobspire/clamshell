@@ -1,0 +1,7 @@
+# Stricter than the default ruleset, but only checks that catch real bugs.
+#
+# Deliberately NOT enabled:
+#   require-variable-braces    (SC2250) - cosmetic, ${x} vs $x
+#   require-double-brackets    (SC2292) - cosmetic here; all tests are quoted
+#   check-extra-masked-returns (SC2312) - we want command output, not status
+enable=add-default-case,avoid-negated-conditions,check-set-e-suppressed,check-unassigned-uppercase,deprecate-which,quote-safe-variables,useless-use-of-cat
